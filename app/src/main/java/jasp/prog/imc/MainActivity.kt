@@ -11,43 +11,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        imc()
-        Toast.makeText(this, "Introduce los valores o petará", Toast.LENGTH_SHORT).show()
+        val boton = findViewById<Button>(R.id.boton)
 
 
-    }
+        boton.setOnClickListener() {
 
-   public fun imc() {
+            val alt = findViewById<EditText>(R.id.altura)
+            val pes = findViewById<EditText>(R.id.peso)
 
-      var peso = findViewById<EditText>(R.id.peso)
+            if (alt.text.isEmpty() || pes.text.isEmpty()) {
+                Tutoast()
 
-       var altura = findViewById<EditText>(R.id.altura)
+            }
+            else {
+                val altura = alt.text.toString().toDouble()
+                val peso = pes.text.toString().toDouble()
 
-       var boton = findViewById<Button>(R.id.boton)
+                val sum = (peso / ((altura / 100) * (altura / 100)))
+                val sum2 = "%.2f".format(sum)
+                val resultado = findViewById<TextView>(R.id.resultado)
+                resultado.setText(sum2)
+            }
 
-
-
-            boton.setOnClickListener(){
-                var a: Double = (altura.text.toString()).toDouble()
-                var b: Double = (peso.text.toString()).toDouble()
-
-                    var sum = (b/((a/100)*(a/100)))
-                    //var sum2 = String.format("%.2f", sum); // molaria que fuese kotlin
-                    var sum2 = "%.2f".format(sum)
-
-                    var resultado= findViewById<TextView>(R.id.resultado)
-                    resultado.setText(sum2.toString())
-
-
-
-
+            }
 
         }
 
+    fun Tutoast() {
+
+        Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_LONG).show()
+
     }
 
-
-}
-
-// Falta corregir las excepciones
-
+    }
